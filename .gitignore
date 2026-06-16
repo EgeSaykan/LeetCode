@@ -1,5 +1,7 @@
 .vscode/
+mq/
 
 *.exe
 
 test.py
+test_run.py
