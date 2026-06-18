@@ -41,9 +41,10 @@ public:
 int main() {
     Solution solution;
 
-    string a = "hel*lo%kitty";
+    string a = "p#*m#f#ast#a";
     string result = solution.processStr(a);
     cout << result << endl;
+    cout << result[6] << endl;
     cout << endl;
 
     return 0;

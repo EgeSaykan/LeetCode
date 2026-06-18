@@ -10,16 +10,19 @@ using namespace std;
 class Solution {
 public:
 
-    void remove(long long& k) {
-        k++;
+    void remove(long long& k, long long& len) {
+        if (k >= len)
+            k++;
     }
 
-    void add(long long& k) {
-        k--;
+    void add(long long& k, long long& len) {
+        if (k < len)
+            k--;
     }
 
     void duplicate(long long& k, long long& len) {
-        k -= (len >> 1);
+        if (k >= (len-1))
+            k = len>>1;
     }
 
     void reverseK(long long& k, long long& len) {
@@ -31,8 +34,9 @@ public:
         vector<long long> lengths;
         long strLen = 0;
         long long len = 0;
+        string copyOfOld;
         for (char c : s) {
-            if ('a' <= c && c <= 'z') { len++; strLen++;}
+            if ('a' <= c && c <= 'z') { len++; strLen++; copyOfOld += c; }
             else if (c == '*' && len > 0) { len--; }
             else if (c == '#') { len <<= 1; }
             lengths.push_back(len);
@@ -41,14 +45,13 @@ public:
         cout << endl;
         if (k >= len) return '.';
 
-        string copyOfOld = s;
         reverse(s.begin(), s.end());
 
         for (char c : s) {
             long long currLen = lengths.back();
             lengths.pop_back();
-            if ('a' <= c && c <= 'z') {  }
-            else if (c == '*') { remove(k); }
+            if ('a' <= c && c <= 'z') { }
+            else if (c == '*') { remove(k, currLen); }
             else if (c == '#') { duplicate(k, currLen); }
             else if (c == '%') { reverseK(k, currLen); }
             cout << "k: " << k  << "    c: " << c << "   len: "<< currLen << endl;
@@ -65,8 +68,10 @@ int main() {
 
     string s = "hell#";
     // s = "ca#ke";
-    s = "p#m#f#ast#a";
-    long long k = 5;
+    s = "ab#cd";
+    s = "p#*m#f#ast#a";
+    s = "ab#cdef";
+    long long k = 3;
 
     char c = a.processStr(s, k);
     cout << c;
