@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Solution {
+class Solution1 {
 public:
 
     void remove(string& s) {
@@ -39,7 +39,7 @@ public:
 
 
 int main() {
-    Solution solution;
+    Solution1 solution;
 
     string a = "p#*m#f#ast#a";
     string result = solution.processStr(a);

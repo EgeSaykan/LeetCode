@@ -26,7 +26,10 @@ public:
     }
 
     void reverseK(long long& k, long long& len) {
-        k = len - k - 1;
+        if (k <= (len - 1))
+            k = len - k - 1;
+        // else if (k < (len -1 >> ""))
+        //     k = 
     }
 
     char processStr(string s, long long k) {
@@ -69,12 +72,12 @@ int main() {
     string s = "hell#";
     // s = "ca#ke";
     s = "ab#cd";
-    s = "p#*m#f#ast#a";
-    s = "ab#cdef";
-    long long k = 3;
+    s = "o#avweoom";
+    // s = "ab%*cd%ef";
+    long long k = 8;
 
     char c = a.processStr(s, k);
-    cout << c;
+    cout << c << endl;
 
     // int a = 6;
     // cout << a << endl;
