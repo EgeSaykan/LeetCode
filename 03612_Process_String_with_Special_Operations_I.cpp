@@ -41,10 +41,10 @@ public:
 int main() {
     Solution1 solution;
 
-    string a = "p#*m#f#ast#a";
+    string a = "o#avw#eoom";
     string result = solution.processStr(a);
     cout << result << endl;
-    cout << result[6] << endl;
+    cout << result[8] << endl;
     cout << endl;
 
     return 0;
