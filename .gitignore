@@ -4,4 +4,5 @@ mq/
 *.exe
 
 test.*
+test.cpp
 test_run.py
