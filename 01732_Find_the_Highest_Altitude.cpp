@@ -3,6 +3,7 @@
 #include<numeric>
 #include<execution>
 #include<random>
+#include<chrono>
 
 using namespace std;
 
@@ -18,28 +19,6 @@ class Solution {
             }
             return max;
         }
-        
-        int binS(vector<int>& gain, int prevSum = -50, int start = -50, int end = -50) {
-            int max = 0;
-            if (prevSum == -50) {
-                prevSum = reduce(execution::par, gain.begin(), gain.end(), 0LL);
-                start = 0;
-                end = gain.size() - 1 ;
-            }
-            if (start >= end) {
-                return reduce(execution::par, gain.begin(), end+1, 0LL);
-            }
-
-            int halfSum = reduce(execution::par, gain.begin(), gain.begin() + (end>>1), 0LL);
-
-            if ((halfSum<<1) > prevSum) {
-                return bins(gain, halfSum, start, (start + end)>>1);
-            }
-            return max;
-        }
-
-
-
 };
 
 int main() {
@@ -48,14 +27,13 @@ int main() {
     mt19937 rng(dev());
     uniform_int_distribution<int> dist(-100, 100);
 
-    int n = 10;
+    const int n = 1000;
     vector<int> nums(n);
-    
-    int naiveM = a.naive(nums);
-    int binS = a.binS(nums);
 
+    for (auto& x : nums) x = dist(rng);
 
-    cout << endl;
+    int max = a.naive(nums);
+    cout << max << endl;
 
     return 0;
 }

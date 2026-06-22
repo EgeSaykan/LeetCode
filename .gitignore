@@ -3,5 +3,5 @@ mq/
 
 *.exe
 
-test.py
+test.*
 test_run.py
