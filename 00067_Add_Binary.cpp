@@ -7,22 +7,30 @@ using namespace std;
 
 
 class Solution {
+private:
+    void removeLeadingZeros(string& a) {
+        while (a.size() > 0) {
+            if (a[0] == '0') a.erase(0, 1);
+            else break;
+        }
+    }
 public:
     string addBinary(string a, string b) {
+        auto a_count = a.find('1');
+        auto b_count = b.find('1');
+        if (a_count == std::string::npos && b_count == std::string::npos) return "0";
+        else if (a_count == std::string::npos) return b;
+        else if (b_count == std::string::npos) return a;
+        else if (a == b) return a + "0";
         string res = "";
-        int en = b.size()-1;
-        int be = en - a.size();
-        int bOffset = 0;
-        int aOffset = be+1;
-        if (a.size() > b.size()) { 
-            en = a.size()-1;
-            be = en - b.size();
-            aOffset = 0;
-            bOffset = be+1;
-        }
+        string& bigger  = (a.size() >= b.size()) ? a : b;
+        string& smaller = (a.size() >= b.size()) ? b : a;
+        const int small_size = smaller.size();
+        const int bigger_size = bigger.size();
+        int diff = bigger_size - small_size;
         unsigned int carry = 0;
-        for (int i = en; i > be; i--) {
-            int add = (a[i - aOffset] & 1) + (b[i - bOffset] & 1) + carry;
+        for (int i = small_size-1; i >= 0; i--) {
+            int add = carry + (bigger[i + diff] & 1) + (smaller[i] & 1);
             if (add == 3) {
                 carry = 1;
                 res = "1" + res;
@@ -40,33 +48,34 @@ public:
                 res = "0" + res;
             }
         }
-        if (carry == 1) {
-            if (a.size() > b.size()) {
-                for (int i = be; i >= 0; i--) {
-                    if (carry == 0) break;
-                    if (a[i] == '1') {
-                        res = "0" + res;
-                        carry = 1;
-                    }
-                    else {
-                        res = "1" + res;
-                    }
-                }
+        if (carry == 0) return bigger.substr(0, diff) + res;
+        if (diff == 0) return "1" + res;
+        while (diff >= 0) {
+            --diff;
+            const char c = bigger[diff];
+            
+            if (c == 48) {
+                res = bigger.substr(0, diff) + "1" + res;
+                break;
             }
+            if (diff == 0) {
+                res = "10" + res;
+                break;
+            }
+            res = "0" + res;
         }
-        
-
         return res;
     }
 };
 
 
+
 int main() {
     Solution a = Solution();
 
-    string s1 = "1011101";
+    string s1 = "1010";
     string m = "dddd";
-    string s2 = "1011101";
+    string s2 = "1011";
 
     string res = a.addBinary(s1, s2);
 
