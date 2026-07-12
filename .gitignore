@@ -1,5 +1,6 @@
 .vscode/
 mq/
+output/
 
 *.exe
 
