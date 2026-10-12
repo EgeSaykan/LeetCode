@@ -28,24 +28,40 @@ public:
 
         }
 
+        
         int queue = 0;
         while (true) {
 
             int& rad = thieves[queue][2];
-            int& x =   thieves[queue][0];
-            int& y =   thieves[queue][1];
+            int& x =   thieves[queue][1];
+            int& y =   thieves[queue][0];
             for (int i = 1; i <= rad; i++) {
-                if (y - (rad - i) >= 0 && i+x < n) {
-                    dist[y - (rad - i)][i] = rad;
+                if (y - (rad - i) >= 0 && x + i < n) {
+                    dist[y - (rad - i)][x + i] = rad;
                 }
-                if (y + (rad - i)) < n && i+x < n) {
-
+                if (y + (rad - i) < n && x + i < n) {
+                    dist[y + (rad - i)][x + i] = rad;
                 }
-            
-
+                if (y - (rad - i) >= 0 && x - i >= 0) {
+                    dist[y - (rad - i)][x - i] = rad;
+                }
+                if (y + (rad - i) < n && x - i >= 0) {
+                    dist[y + (rad - i)][x - i] = rad;
+                }
+            }
+            break;
             queue++;
             if (queue == len_thieves) queue = 0;
         }
+
+        cout << endl;cout << endl;
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < n; c++) {
+                cout << dist[r][c] << "  ";
+            }
+            cout << endl;
+        }
+        cout << endl;cout << endl;
 
         // for (auto k : thieves) {
         //     cout << k[0] << "   " << k[1] << endl;
